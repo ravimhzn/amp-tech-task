@@ -83,6 +83,7 @@ dependencies {
     //Network
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 
     //DI
     kapt(libs.hilt.android.compiler)

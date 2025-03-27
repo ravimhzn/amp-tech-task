@@ -1,8 +1,9 @@
-package com.ravimhzn.amp
+package com.ravimhzn.amp.task
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
 import com.ravimhzn.amp.ui.theme.BaseAmpTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -12,9 +13,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BaseAmpTheme {
-                //Todo
+                MainNavigationGraph(
+                    navHostController = rememberNavController(),
+                    this
+                )
             }
         }
     }
 }
-
