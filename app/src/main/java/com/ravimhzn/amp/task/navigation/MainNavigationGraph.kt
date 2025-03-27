@@ -1,4 +1,4 @@
-package com.ravimhzn.amp.task
+package com.ravimhzn.amp.task.navigation
 
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -8,13 +8,15 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.ravimhzn.amp.task.ui.TransferScreen
+import com.ravimhzn.amp.task.ui.MainActivity
+import com.ravimhzn.amp.task.ui.MainViewController
 
 @Composable
 fun MainNavigationGraph(
     navHostController: NavHostController,
     activity: MainActivity
 ) {
-
     AmpNavHost(navHostController, AmpRoute.MainScreen.route) {
         composable(AmpRoute.MainScreen.route) {
             MainViewController(navHostController, activity)

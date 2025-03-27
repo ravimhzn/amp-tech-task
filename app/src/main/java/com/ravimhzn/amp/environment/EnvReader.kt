@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.ravimhzn.amp.util.JsonHandler
 import com.ravimhzn.amp.util.LOG_ERROR
+import com.ravimhzn.amp.util.LOG_INFO
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,7 +31,7 @@ class EnvReader @Inject constructor(
                 EnvConfig()
             }
             current.also {
-                Log.e(LOG_ERROR, it.toString())
+                Log.d(LOG_INFO, it.toString())
             }
             return current
         }

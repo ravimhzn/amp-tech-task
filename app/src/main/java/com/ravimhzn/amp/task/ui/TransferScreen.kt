@@ -1,8 +1,7 @@
-package com.ravimhzn.amp.task
+package com.ravimhzn.amp.task.ui
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import com.ravimhzn.amp.task.MainActivity
 
 @Composable
 fun TransferScreen(

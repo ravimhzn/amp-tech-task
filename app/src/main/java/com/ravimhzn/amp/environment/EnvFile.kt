@@ -4,7 +4,7 @@ import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
-//Demonstration class to read environments (SIT, UAT, PRD...)
+//Demonstration class to read environments (DEV, SIT, UAT, PRD...)
 const val ENV_KEY = "envs"
 
 @Singleton

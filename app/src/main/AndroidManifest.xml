@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Android.Amp.Theme"
         tools:targetApi="31">
         <activity
-            android:name="com.ravimhzn.amp.task.MainActivity"
+            android:name="com.ravimhzn.amp.task.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Android.Amp.Theme">
             <intent-filter>
