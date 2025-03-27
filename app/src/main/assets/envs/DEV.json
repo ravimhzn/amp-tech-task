@@ -1,0 +1,4 @@
+{
+  "baseUrl": "https://api-sandbox.starlingbank.com",
+  "timeoutInterval": 500
+}

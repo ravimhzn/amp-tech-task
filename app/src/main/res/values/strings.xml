@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">amp-tech-task</string>
+
+    <string name="home">Home</string>
+    <string name="offers">Offer</string>
+    <string name="play">Play</string>
+    <string name="account">Account</string>
+</resources>
