@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.sp
 object DimensionUtil {
 
     val contentSpacingTiny = 2.dp
+    val contentSpacingExtraSmall = 4.dp
     val contentSpacing = 16.dp
     val contentSpacingSmall = 8.dp
     val contentSpacingMedium = 12.dp
@@ -15,10 +16,12 @@ object DimensionUtil {
     val textSizeTiny = 10.sp
     val textSizeBody = 14.sp
     val textSizeDefault = 16.sp
+    val textSizeExtraLarge = 18.sp
     val textSizeCaption = 12.sp
 
     val toolbarElevation = 5.dp
+    val toolbarHeight = 56.dp
 
-    val propertyRowHeight = 220.dp
-    val companyLogoHeight = 40.dp
+    val dialogIconSize = 40.dp
+    val buttonHeight = 50.dp
 }

@@ -1,9 +1,11 @@
 package com.ravimhzn.amp.task.viewModel
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.ravimhzn.amp.framework.BaseViewModel
 import com.ravimhzn.amp.task.model.Account
 import com.ravimhzn.amp.task.model.AccountsResponse
+import com.ravimhzn.amp.task.model.TransactionResponse
 import com.ravimhzn.amp.task.repo.AccountDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,11 +16,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val accountDataSource: AccountDataSource) :
     BaseViewModel() {
 
-    init {
-        //Todo
-        println("This is a viewModel")
-        getAccountDetail()
-    }
+    var accountsResponse = mutableStateOf<AccountsResponse?>(null)
+    var transactionResponse = mutableStateOf<TransactionResponse?>(null)
 
     fun getAccountDetail() {
         viewModelScope.launch {
@@ -26,7 +25,7 @@ class MainViewModel @Inject constructor(private val accountDataSource: AccountDa
         }
     }
 
-    fun getTransactionList(account: Account) {
+    private fun getTransactionList(account: Account) {
         viewModelScope.launch {
             enqueue(accountDataSource.getTransactions(account))
         }
@@ -36,7 +35,13 @@ class MainViewModel @Inject constructor(private val accountDataSource: AccountDa
         super.onData(data)
         when (data) {
             is AccountsResponse -> {
+                accountsResponse.value = data
                 getTransactionList(data.accounts[0])
+            }
+
+            is TransactionResponse -> {
+                transactionResponse.value = data
+                data.testFunction()
             }
         }
     }

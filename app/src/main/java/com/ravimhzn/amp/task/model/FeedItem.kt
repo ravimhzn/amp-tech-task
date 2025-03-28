@@ -1,6 +1,9 @@
 package com.ravimhzn.amp.task.model
 
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 data class FeedItem(
     val amount: Amount,
@@ -27,4 +30,15 @@ data class FeedItem(
     val transactingApplicationUserUid: String,
     val transactionTime: String,
     val updatedAt: String
-): Serializable
+) : Serializable {
+
+    fun getFormattedTransactionDate(): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+        val outputFormat = SimpleDateFormat("EEE dd MMM", Locale.ENGLISH) // Desired format
+
+        val date = inputFormat.parse(transactionTime) ?: return "Invalid date"
+        return outputFormat.format(date)
+    }
+}

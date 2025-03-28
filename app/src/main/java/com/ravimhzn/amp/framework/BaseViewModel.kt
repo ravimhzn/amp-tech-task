@@ -3,7 +3,7 @@ package com.ravimhzn.amp.framework
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.ravimhzn.domainproperties.util.Callable
+import com.ravimhzn.amp.util.Callable
 import com.ravimhzn.amp.util.LOG_ERROR
 import com.ravimhzn.amp.util.NetworkUtil
 import com.ravimhzn.amp.util.UNKNOWN_ERROR
