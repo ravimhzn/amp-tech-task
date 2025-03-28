@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ravimhzn.amp.task.model.AccountsResponse
+import com.ravimhzn.amp.task.model.Amount
 import com.ravimhzn.amp.task.model.FeedItem
 import com.ravimhzn.amp.task.model.TransactionResponse
 import com.ravimhzn.amp.task.navigation.AmpRoute
@@ -149,7 +150,7 @@ fun TransactionListView(feed: FeedItem) {
             )
 
             Text(
-                text = "$${feed.amount.convertMinorUnitsToPounds()}",
+                text = "£${feed.amount.convertMinorUnitsToPounds()}",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFB32525)
@@ -166,15 +167,33 @@ fun TransactionListView(feed: FeedItem) {
 @Composable
 fun TransactionListViewPreview() {
     BaseAmpTheme {
-        //Todo
-        //TransactionListView(null)
+        TransactionListView(transactionResponse.feedItems[0])
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun MainViewPreview() {
+
     BaseAmpTheme {
-        MainView(rememberNavController(), null, null)
+        MainView(rememberNavController(), null, transactionResponse)
     }
 }
+
+val transactionResponse =
+    TransactionResponse(
+        listOf(
+            FeedItem(
+                Amount("", 109),
+                source = "Some Source",
+                reference = "Some Reference",
+                transactionTime = "2025-03-28T00:05:07.118Z"
+            ),
+            FeedItem(
+                Amount("", 1090),
+                source = "Some Source",
+                reference = "Some Reference",
+                transactionTime = "2025-03-26T00:05:07.118Z"
+            )
+        )
+    )

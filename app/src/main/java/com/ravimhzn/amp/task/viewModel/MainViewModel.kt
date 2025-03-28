@@ -41,7 +41,6 @@ class MainViewModel @Inject constructor(private val accountDataSource: AccountDa
 
             is TransactionResponse -> {
                 transactionResponse.value = data
-                data.testFunction()
             }
         }
     }
