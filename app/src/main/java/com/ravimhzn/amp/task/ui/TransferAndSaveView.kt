@@ -35,7 +35,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ravimhzn.amp.task.model.TransactionResponse
@@ -215,58 +214,66 @@ fun FundsTransferredDialog(
     value: String,
     onClose: Callable<Boolean>
 ) {
-    Dialog(
-        onDismissRequest = { onClose.call(true) }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.5f)), // Dims the background
+        contentAlignment = Alignment.Center
     ) {
-        Box(
-            Modifier
-                .padding(contentSpacing)
-                .shadow(
-                    contentSpacingSmall,
-                    RoundedCornerShape(contentSpacingSmall)
-                )
-                .background(
-                    Color.White,
-                    RoundedCornerShape(contentSpacingSmall)
-                )
+        Dialog(
+            onDismissRequest = { onClose.call(true) }
         ) {
-            Column(Modifier.padding(contentSpacing)) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = String.format(TRANSFER_FUNDS_SUCCESS, value),
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        textAlign = TextAlign.Center
+            Box(
+                Modifier
+                    .padding(contentSpacing)
+                    .shadow(
+                        contentSpacingSmall,
+                        RoundedCornerShape(contentSpacingSmall)
                     )
-                )
-
-                Spacer(modifier = Modifier.height(contentSpacing))
-
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = String.format(TRANSFER_FUNDS_TRANSFERRED, value),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        textAlign = TextAlign.Center
+                    .background(
+                        Color.White,
+                        RoundedCornerShape(contentSpacingSmall)
                     )
-                )
-
-                Spacer(modifier = Modifier.height(contentSpacing))
-
-                Button(
-                    onClick = { onClose.call(true) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(buttonHeight),
-                    shape = RoundedCornerShape(contentSpacingSmall),
-                ) {
+            ) {
+                Column(Modifier.padding(contentSpacing)) {
                     Text(
-                        "Close",
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
+                        modifier = Modifier.fillMaxWidth(),
+                        text = String.format(TRANSFER_FUNDS_SUCCESS, value),
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            textAlign = TextAlign.Center
+                        )
                     )
+
+                    Spacer(modifier = Modifier.height(contentSpacing))
+
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = String.format(TRANSFER_FUNDS_TRANSFERRED, value),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            textAlign = TextAlign.Center
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.height(contentSpacing))
+
+                    Button(
+                        onClick = { onClose.call(true) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(buttonHeight),
+                        shape = RoundedCornerShape(contentSpacingSmall),
+                    ) {
+                        Text(
+                            "Close",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
         }
     }
+
 }
 
 fun getFormattedDate(date: String): String {
