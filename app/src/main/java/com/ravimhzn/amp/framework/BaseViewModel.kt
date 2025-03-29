@@ -80,27 +80,28 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
     private fun <T> handleError(response: Response<T>) {
         var statusCode = ""
         var statusMessage = ""
+        var error = ""
+        var errorDescription = ""
         try {
             val errorMessage = Gson().fromJson(
                 response.getErrorBody()?.charStream(),
                 NetworkError::class.java
             )
-            statusCode = errorMessage?.statusCode ?: ""
+            statusCode =response.code().toString()
             statusMessage = errorMessage?.statusMessage ?: ""
+            error = errorMessage?.error ?: ""
+            errorDescription = errorMessage?.error_description ?: ""
         } catch (e: Exception) {
             Log.e(LOG_ERROR, "${response.errorMessage()}\t$e")
         }
 
-        val error = NetworkError(
+        val networkError = NetworkError(
             statusCode,
-            statusMessage
+            statusMessage,
+            error,
+            errorDescription
         )
-        onError(error)
-    }
-
-    protected fun start(callable: Callable<Boolean>) {
-        loading()
-        callable.call(true)
+        onError(networkError)
     }
 
     protected fun loading() {
@@ -111,7 +112,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
         _uiState.value = State.Loaded(data)
     }
 
-    fun onError(error: NetworkError) {
+    open fun onError(error: NetworkError) {
         try {
             _uiState.value = State.Error(error)
             error.statusMessage?.let {

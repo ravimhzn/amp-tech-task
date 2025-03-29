@@ -7,9 +7,13 @@ const val UNKNOWN_ERROR_CODE = "505"
 
 //Info
 const val LOG_INFO = "INFO - "
+const val NETWORK_ERROR = "Something went wrong. Https request was unsuccessful."
+const val ACCESS_TOKEN_EXPIRED = "Network Error - Access Token Expired. Please update access_token manually using StarLink Developer account for respective mock customer."
 
 const val TOOLBAR_HOME_TRANSACTION = "Transaction List"
 const val TOOLBAR_HOME_FUNDS_TRANSFERRED = "Transfer Funds"
+const val ACCOUNT_TYPE = "A/C Type: %s"
+const val REFERENCE = "Reference: %s"
 const val TRANSFER_FUNDS = "Round up, Transfer & Save"
 const val TRANSFER_FUNDS_DIALOG_Title = "Select Dates"
 const val TRANSFER_FUNDS_DIALOG_DESC = "Round up your transactions for a chosen date range and transfer the savings to your goal, helping you save for future adventures!"

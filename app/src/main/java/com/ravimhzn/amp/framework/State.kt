@@ -9,7 +9,7 @@ sealed class State {
     class Error(
         val error: NetworkError
     ) : State() {
-        fun errorCode() = error.statusCode
-        fun errorMessage() = error.statusMessage
+        fun error() = error.error
+        fun errorDescription() = error.error_description
     }
 }

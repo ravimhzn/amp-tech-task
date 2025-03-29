@@ -10,7 +10,7 @@ lifecycleVersion = "2.8.7"
 material3Android = "1.3.1"
 composeBomDate = "2025.03.01"
 jetpack-navigation = "2.8.9"
-androidx-activityCompose = "1.10.1"
+androidx-activityCompose = "1.9.0"
 
 #Network
 retrofitVersion = "2.9.0"
@@ -72,6 +72,8 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoKotl
 mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version.ref = "mockitoKotlin" }
 io-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
 #Todo review below UT libraries
 core = { module = "androidx.test:core", version.ref = "androidx-core" }
 core-testing = { module = "androidx.arch.core:core-testing", version.ref = "arcCoreTestingVersion" }

@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.ravimhzn.amp"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.ravimhzn.amp"
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -100,11 +100,16 @@ dependencies {
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.androidx.espresso.core)
     /**
      * Robolectric won't run without test core dependencies
      * https://stackoverflow.com/questions/52883747/robolectric-runtimeenvironment-application-is-deprecated-where-is-applicationpr
      */
     testImplementation(libs.robolectric)
     testImplementation(libs.core)
+
+    //InstrumentationTest
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(composeBom)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
 }

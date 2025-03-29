@@ -16,15 +16,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.ravimhzn.amp.framework.State
 import com.ravimhzn.amp.task.model.AccountsResponse
 import com.ravimhzn.amp.task.model.Amount
 import com.ravimhzn.amp.task.model.FeedItem
@@ -33,10 +37,12 @@ import com.ravimhzn.amp.task.navigation.AmpRoute
 import com.ravimhzn.amp.task.navigation.TRANSACTION_DETAIL_KEY
 import com.ravimhzn.amp.task.viewModel.MainViewModel
 import com.ravimhzn.amp.ui.theme.BaseAmpTheme
+import com.ravimhzn.amp.util.ACCOUNT_TYPE
 import com.ravimhzn.amp.util.DimensionUtil.contentSpacing
 import com.ravimhzn.amp.util.DimensionUtil.contentSpacingMedium
 import com.ravimhzn.amp.util.DimensionUtil.contentSpacingSmall
 import com.ravimhzn.amp.util.DimensionUtil.contentSpacingTiny
+import com.ravimhzn.amp.util.REFERENCE
 import com.ravimhzn.amp.util.TOOLBAR_HOME_TRANSACTION
 import com.ravimhzn.amp.util.TRANSFER_FUNDS
 
@@ -45,21 +51,30 @@ fun MainViewController(
     navHostController: NavHostController,
     viewModel: MainViewModel = hiltViewModel()
 ) {
+    val state by viewModel.uiState
+        .collectAsStateWithLifecycle(initialValue = State.Empty)
+
     LaunchedEffect(Unit) {
         viewModel.getAccountDetail()
     }
+
+
     MainView(
         navHostController,
+        state,
         viewModel.accountsResponse.value,
-        viewModel.transactionResponse.value
+        viewModel.transactionResponse.value,
+        viewModel.errorMessage.value
     )
 }
 
 @Composable
 fun MainView(
     navHostController: NavHostController,
+    state: State,
     accounts: AccountsResponse?,
-    transactions: TransactionResponse?
+    transactions: TransactionResponse?,
+    errorMessage: String
 ) {
     Column(
         modifier = Modifier
@@ -67,48 +82,64 @@ fun MainView(
     ) {
         Toolbar(TOOLBAR_HOME_TRANSACTION)
 
-        if (transactions == null) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            }
-
-        } else {
-            Spacer(modifier = Modifier.height(contentSpacingMedium))
-            Row(
-                Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+        when (state) {
+            is State.Error -> {
                 Text(
-                    modifier = Modifier.padding(start = contentSpacing),
-                    text = "A/C Type: ${accounts?.accounts[0]?.name}",
+                    modifier = Modifier.padding(contentSpacing),
+                    text = errorMessage,
                     style = MaterialTheme.typography.labelSmall
                 )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                Text(
-                    modifier = Modifier
-                        .padding(end = contentSpacing)
-                        .clickable {
-                            navHostController.currentBackStackEntry?.savedStateHandle?.set(
-                                TRANSACTION_DETAIL_KEY,
-                                transactions
-                            )
-                            navHostController.navigate(AmpRoute.TransferAndSaveScreen.route)
-                        },
-                    text = TRANSFER_FUNDS,
-                    style = MaterialTheme.typography.labelLarge,
-                    textDecoration = TextDecoration.Underline
-                )
             }
-            Spacer(modifier = Modifier.height(contentSpacingMedium))
-            val feedList = transactions.feedItems
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                items(feedList.size) { index ->
-                    TransactionListView(feedList[index])
+
+            else -> {
+                if (transactions == null) {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .testTag("progressBar")
+                        )
+                    }
+
+                } else {
+                    Spacer(modifier = Modifier.height(contentSpacingMedium))
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(start = contentSpacing),
+                            text = String.format(ACCOUNT_TYPE, accounts?.accounts[0]?.name),
+                            style = MaterialTheme.typography.labelSmall
+                        )
+
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        Text(
+                            modifier = Modifier
+                                .padding(end = contentSpacing)
+                                .clickable {
+                                    navHostController.currentBackStackEntry?.savedStateHandle?.set(
+                                        TRANSACTION_DETAIL_KEY,
+                                        transactions
+                                    )
+                                    navHostController.navigate(AmpRoute.TransferAndSaveScreen.route)
+                                },
+                            text = TRANSFER_FUNDS,
+                            style = MaterialTheme.typography.labelLarge,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(contentSpacingMedium))
+                    val feedList = transactions.feedItems
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        items(feedList.size) { index ->
+                            TransactionListView(feedList[index])
+                        }
+                    }
                 }
             }
         }
@@ -131,7 +162,7 @@ fun TransactionListView(feed: FeedItem) {
         )
 
         Text(
-            text = "Reference: ${feed.reference}",
+            text = String.format(REFERENCE, feed.reference),
             style = MaterialTheme.typography.labelSmall,
             color = Color.Gray
         )
@@ -176,7 +207,7 @@ fun TransactionListViewPreview() {
 fun MainViewPreview() {
 
     BaseAmpTheme {
-        MainView(rememberNavController(), null, transactionResponse)
+        MainView(rememberNavController(), State.Loading, null, transactionResponse, "")
     }
 }
 
