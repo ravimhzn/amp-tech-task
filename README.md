@@ -4,7 +4,7 @@ We’d like you to develop a “round-up” feature for AMP Bank customers using
 For a customer, take all the transactions in a given week and round them up to the nearest dollar. For example
 with spending of $4.35, $5.20 and $0.87, the round-up would be $1.58. This amount should then be transferred
 into a savings goal, helping the customer save for future adventures.
-Note: You should use the default currency of the account for creation of the savings goal.
+Note: You should use the default currency of the account for creation of the savings goal. For more details - [Click here.](https://github.com/ravimhzn/amp-tech-task/blob/main/question/amp_tech_task.pdf)
 
 # IMPORTANT NOTES:
 - Please note that by the time of testing the app, the access token may have expired, as it is only valid for 24 hours. The access token will need to be manually updated using the Starling Developer Account. I'll try to update it daily, but if I haven't, please feel free to ping me. Alternatively, if you have a developer account, you can update the access token under AccountRepository.
