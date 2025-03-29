@@ -26,10 +26,6 @@ private val accessToken = "NEW_ACCESS_TOKEN" //Valid only 24 hours.
     <td><img src="https://github.com/ravimhzn/amp-tech-task/blob/main/images/transfer_success.png" width="250"></td>
   </tr>
 </table>
-<table style="width:100%">
- <td><img src="https://github.com/ravimhzn/amp-tech-task/blob/main/images/amp_tech.gif" width="250"></td>
-</table>
-
 
 # About
 This sample application, part of the Amp-Tech-Task, is built using declarative programming and follows Clean MVVM architecture. It leverages the latest tech stacks and best practices to ensure scalability, maintainability, and a state-driven UI that updates automatically based on changes in the underlying state.
