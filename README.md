@@ -14,6 +14,7 @@ private val accessToken = "NEW_ACCESS_TOKEN" //Valid only 24 hours.
 - The amount returned by the transaction API is in pounds (£) instead of dollars ($). Therefore, I'll refer to it as the default currency for this task to avoids currency conversion issues.
 - There is limited clarity on the Saving Goals API, which is why I've only simulated how the rounded-up amount would be transferred to Saving Goals (please refer to the screenshots below). Let me know if any further adjustments are needed.
 - Regarding the weekly transaction, I've taken it a step further by adding a calendar feature that allows the user to choose a date range, whether weekly or any custom range.
+- Added sample Instrumentation Compose UI tests(Emulator), Robolectric Compose UI tests (JVM), and unit tests for other modules.
 
 # Screenshots
 <table style="width:100%">
