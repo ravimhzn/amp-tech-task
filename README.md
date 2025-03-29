@@ -36,6 +36,7 @@ This sample application, part of the Amp-Tech-Task, is built using declarative p
 
 Tech Stack:
 - Kotlin – Primary programming language
+- Activity & ComposeUI
 - Coroutines
 - State Management – Efficient UI updates
 - Hilt For Dependency injection
